@@ -56,8 +56,9 @@ public class VideoGameTests extends VideoGameConfig {
     public void updateGame() {
         given()
                 .body(this.gameBodyJson)
+                .pathParam("videoGameId", 5)
                 .when()
-                .put(VideoGameEndpoints.ALL_VIDEO_GAMES + "/4")
+                .put(VideoGameEndpoints.SINGLE_VIDEO_GAMES)
                 .then();
     }
 
@@ -65,8 +66,18 @@ public class VideoGameTests extends VideoGameConfig {
     public void deleteGame() {
         given()
                 .accept("text/plain")
+                .pathParam("videoGameId", 5)
                 .when()
-                .delete(VideoGameEndpoints.ALL_VIDEO_GAMES + "/4")
+                .delete(VideoGameEndpoints.SINGLE_VIDEO_GAMES)
+                .then();
+    }
+
+    @Test
+    public void getSingleGame() {
+        given()
+                .pathParam("videoGameId", 5)
+                .when()
+                .get(VideoGameEndpoints.SINGLE_VIDEO_GAMES)
                 .then();
     }
 
