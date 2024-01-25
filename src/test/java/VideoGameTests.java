@@ -6,34 +6,35 @@ import static io.restassured.RestAssured.given;
 
 public class VideoGameTests extends VideoGameConfig {
 
+    String gameBodyJson = "{\n" +
+            "  \"category\": \"Platform\",\n" +
+            "  \"name\": \"Mario\",\n" +
+            "  \"rating\": \"Mature\",\n" +
+            "  \"releaseDate\": \"2022-05-04\",\n" +
+            "  \"reviewScore\": 89\n" +
+            "}";
+
     @Test
-    public void getAllGames(){
+    public void getAllGames() {
         given()
-        .when()
+                .when()
                 .get(VideoGameEndpoints.ALL_VIDEO_GAMES)
-        .then();
+                .then();
 
     }
 
     @Test
-    public void createNewGameByJson(){
-        String gameBodyJson = "{\n" +
-                "  \"category\": \"Platform\",\n" +
-                "  \"name\": \"Mario\",\n" +
-                "  \"rating\": \"Mature\",\n" +
-                "  \"releaseDate\": \"2022-05-04\",\n" +
-                "  \"reviewScore\": 89\n" +
-                "}";
+    public void createNewGameByJson() {
 
         given()
-                    .body(gameBodyJson)
+                .body(this.gameBodyJson)
                 .when()
-                    .post(VideoGameEndpoints.ALL_VIDEO_GAMES)
+                .post(VideoGameEndpoints.ALL_VIDEO_GAMES)
                 .then();
     }
 
     @Test
-    public void createNewGameByXml(){
+    public void createNewGameByXml() {
         String gameBodyXml = "<VideoGameRequest>\n" +
                 "\t<category>Platform</category>\n" +
                 "\t<name>Mario</name>\n" +
@@ -51,5 +52,22 @@ public class VideoGameTests extends VideoGameConfig {
                 .then();
     }
 
+    @Test
+    public void updateGame() {
+        given()
+                .body(this.gameBodyJson)
+                .when()
+                .put(VideoGameEndpoints.ALL_VIDEO_GAMES + "/4")
+                .then();
+    }
+
+    @Test
+    public void deleteGame() {
+        given()
+                .accept("text/plain")
+                .when()
+                .delete(VideoGameEndpoints.ALL_VIDEO_GAMES + "/4")
+                .then();
+    }
 
 }
