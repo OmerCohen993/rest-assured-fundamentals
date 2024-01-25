@@ -11,7 +11,6 @@ public class TestConfig {
         RestAssured.baseURI = "https://videogamedb.uk/";
         RestAssured.basePath = "api/v2/";
 //        RestAssured.port = 443;
-
         RestAssured.requestSpecification = new RequestSpecBuilder()
                 .setContentType("application/json")
                 .addHeader("Accept", "application/json")
