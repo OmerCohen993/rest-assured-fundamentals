@@ -68,4 +68,17 @@ public class FootballTests extends FootballConfig {
         System.out.println(jsonResponseAsString);
     }
 
+    @Test
+    public void extractHeaders() {
+        Response response =
+                get("teams/57")
+                        .then()
+                        .extract().response();
+        String contentTypeHeader = response.getContentType();
+        System.out.println(contentTypeHeader);
+
+        String apiVersionHeader = response.getHeader("X-API-Version");
+        System.out.println(apiVersionHeader);
+    }
+
 }
