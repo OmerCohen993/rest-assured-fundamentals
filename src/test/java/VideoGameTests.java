@@ -1,5 +1,7 @@
 import config.VideoGameConfig;
 import config.VideoGameEndpoints;
+import io.restassured.matcher.RestAssuredMatchers;
+import objects.VideoGame;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
@@ -79,6 +81,28 @@ public class VideoGameTests extends VideoGameConfig {
                 .when()
                 .get(VideoGameEndpoints.SINGLE_VIDEO_GAMES)
                 .then();
+    }
+
+    @Test
+    public void testVideoGameSerializationByJson(){
+        VideoGame videoGame = new VideoGame("Shooter", "OmerCOD", "Mature", "2023-12-3", 100);
+
+        given()
+                .body(videoGame) //converting class to json
+                .when()
+                .post(VideoGameEndpoints.ALL_VIDEO_GAMES)
+                .then();
+    }
+
+    @Test
+    public void testVideoGameSchemaXML() {
+        given()
+                .pathParam("videoGameId", 5)
+                .accept("application/xml")
+                .when()
+                .get(VideoGameEndpoints.SINGLE_VIDEO_GAMES)
+                .then()
+                .body(RestAssuredMatchers.matchesXsdInClasspath("VideoGameXSD.xsd"));
     }
 
 }
