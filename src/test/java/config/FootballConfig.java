@@ -7,7 +7,7 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import org.junit.BeforeClass;
 
-public class FootballCongig {
+public class FootballConfig {
     @BeforeClass
     public static void setup() {
         RestAssured.requestSpecification = new RequestSpecBuilder()
@@ -15,8 +15,8 @@ public class FootballCongig {
                 .setBasePath("/v4")
                 .addHeader("x-Auth-Token", "77faa0afce82415b9c900ccf777ce24c")
                 .addHeader("X-Response-Control", "minified")
-                .addFilter(new RequestLoggingFilter())
-                .addFilter(new ResponseLoggingFilter())
+//                .addFilter(new RequestLoggingFilter())
+//                .addFilter(new ResponseLoggingFilter())
                 .build();
 
         RestAssured.responseSpecification = new ResponseSpecBuilder()

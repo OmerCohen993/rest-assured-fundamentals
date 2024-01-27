@@ -1,10 +1,13 @@
-import config.FootballCongig;
+import config.FootballConfig;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.Test;
 
+import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class FootballTests extends FootballCongig {
+public class FootballTests extends FootballConfig {
     @Test
     public void getDetailsOfOneArea() {
         given()
@@ -45,4 +48,24 @@ public class FootballTests extends FootballCongig {
                 .then()
                 .body("teams.name[0]", equalTo("Arsenal FC"));
     }
+
+    @Test
+    public void getAllTeamData() {
+        String responseBody = get("teams/57").asString();
+        System.out.println(responseBody);
+    }
+
+    @Test
+    public void getAllTeamData_DoCheckFirst() {
+        Response response =
+                given()
+                        .when()
+                        .get("teams/57")
+                        .then()
+                        .contentType(ContentType.JSON)
+                        .extract().response();
+        String jsonResponseAsString = response.asString();
+        System.out.println(jsonResponseAsString);
+    }
+
 }
