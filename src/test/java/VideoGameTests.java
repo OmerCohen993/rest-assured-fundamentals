@@ -2,6 +2,7 @@ import config.VideoGameConfig;
 import config.VideoGameEndpoints;
 import io.restassured.matcher.RestAssuredMatchers;
 import io.restassured.module.jsv.JsonSchemaValidator;
+import io.restassured.response.Response;
 import objects.VideoGame;
 import org.junit.Test;
 
@@ -85,7 +86,7 @@ public class VideoGameTests extends VideoGameConfig {
     }
 
     @Test
-    public void testVideoGameSerializationByJson(){
+    public void testVideoGameSerializationByJson() {
         VideoGame videoGame = new VideoGame("Shooter", "OmerCOD", "Mature", "2023-12-3", 100);
 
         given()
@@ -93,6 +94,18 @@ public class VideoGameTests extends VideoGameConfig {
                 .when()
                 .post(VideoGameEndpoints.ALL_VIDEO_GAMES)
                 .then();
+    }
+
+    @Test
+    public void convertJsonToPojo() {
+        Response response =
+                given()
+                        .pathParam("videoGameId", 5)
+                        .when()
+                        .get(VideoGameEndpoints.SINGLE_VIDEO_GAMES);
+
+        VideoGame videoGame = response.getBody().as(VideoGame.class);
+        System.out.println(videoGame.toString());
     }
 
     @Test

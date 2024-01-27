@@ -8,16 +8,15 @@ public class VideoGame {
     private String rating;
     private String releaseDate;
     private Integer reviewScore;
+    private Integer id;
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public VideoGame() {
     }
 
     /**
-     *
      * @param reviewScore
      * @param releaseDate
      * @param name
@@ -73,4 +72,23 @@ public class VideoGame {
         this.reviewScore = reviewScore;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "VideoGame{" +
+                "category='" + category + '\'' +
+                ", name='" + name + '\'' +
+                ", rating='" + rating + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", reviewScore=" + reviewScore +
+                ", id=" + id +
+                '}';
+    }
 }
